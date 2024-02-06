@@ -1,0 +1,64 @@
+﻿using Database.Contexts;
+using Database.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Application.Repository
+{
+    public class SerieRepository
+    {
+        private readonly ApplicationContext _dbContext;
+
+        public SerieRepository(ApplicationContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public async Task AddSerie(Serie serie)
+        {
+            await _dbContext.Series.AddAsync(serie);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateSerie(Serie serie)
+        {
+            _dbContext.Entry(serie).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteSerie(Serie serie)
+        {
+            _dbContext.Set<Serie>().Remove(serie);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<List<Serie>> GetListSeries()
+        {
+            return await _dbContext.Set<Serie>().ToListAsync();
+        }
+
+        public async Task<List<Serie>> GetListSeriesByName(string NombreSerie)
+        {
+            NombreSerie = NombreSerie.ToLower(); // Convertir a minúsculas
+            return await _dbContext.Set<Serie>()
+                .Where(s => s.Nombre.ToLower().Contains(NombreSerie)) // Filtrar por nombre de serie (insensible a mayúsculas y minúsculas)
+                .ToListAsync();
+        }
+        
+        public async Task<List<Serie>> GetListSeriesByProducer(int IdProductora)
+        {
+            return await _dbContext.Set<Serie>()
+                .Where(s => s.IdProductora == IdProductora) // Filtrar por la productora de la serie
+                .ToListAsync();
+        }
+
+        public async Task<Serie> GetSerie(int IdSerie)
+        {
+            return await _dbContext.Set<Serie>().FindAsync(IdSerie);
+        }
+    }
+}

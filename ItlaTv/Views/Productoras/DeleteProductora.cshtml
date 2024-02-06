@@ -1,0 +1,16 @@
+﻿@model Application.ViewModels.SaveProductoraViewModel
+@{
+    bool editModel = Model.IdProductora == 0 ? false : true;
+    ViewData["Title"] = "Eliminar Productora";
+}
+
+<h1 class="text-primary font-weight-bold">Eliminar Género</h1>
+<hr />
+<form method="post" asp-controller="Productoras" asp-action="DeleteProductoraPost">
+    <p>¿Estas seguro de que deseas eliminar a "<span style="font-weight:bold">@Model.Nombre</span>" del catálogo de <span class="text-decoration-underline">productoras</span>?</p>
+
+    <input type="hidden" asp-for="IdProductora" />
+    <hr />
+    <button type="submit" class="btn btn-primary">Borrar</button>
+    <a asp-controller="Productoras" asp-action="Index" class="btn btn-success">Volver Atrás</a>
+</form>

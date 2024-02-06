@@ -1,0 +1,21 @@
+﻿@model Application.ViewModels.SaveGeneroViewModel
+@{
+    bool editModel = Model.IdGenero == 0 ? false : true;
+    ViewData["Title"] = "Save Genero";
+}
+
+<h1 class="text-primary font-weight-bold">@(editModel ? "Modificar Género:" : "Añadir Género:")</h1>
+<hr />
+<form method="post" asp-controller="Generos" asp-action="@(editModel ? "EditGenero" : "CreateGenero")">
+    <div class="row">
+        <div class="mb-3 col-4">
+            <label asp-for="Nombre" class="form-label" style="font-weight:500">Nombre del género:</label>
+            <input type="text" class="form-control" asp-for="Nombre" maxlength="150">
+            <span asp-validation-for="Nombre" class="form-text text-danger"></span>
+        </div>
+    <input type="hidden" asp-for="IdGenero" />
+    </div>
+    <hr />
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-controller="Generos" asp-action="Index" class="btn btn-success">Volver Atrás</a>
+</form>

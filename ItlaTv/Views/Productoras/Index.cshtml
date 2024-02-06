@@ -1,0 +1,42 @@
+﻿@model List<Application.ViewModels.ProductoraViewModel>
+@{
+    ViewData["Title"] = "Productoras";
+}
+
+<div class="d-flex justify-content-center">
+    <a asp-controller="Productoras" asp-action="CreateProductora" class="btn btn-success btn-lg">Agregar Productora</a>
+</div>
+
+<h1 class="text-primary font-weight-bold">Productoras</h1>
+<hr />
+<div class="container">
+    <div class="row">
+        @if (Model == null || Model.Count == 0)
+        {
+            <h2>No hay productoras agregadas.</h2>
+        }
+        else
+        {
+            <table class="table table-bordered table-striped">
+                <thead class="bg-dark">
+                    <tr>
+                        <th scope="col" class="text-white">Nombre de la Productora</th>
+                        <th scope="col" class="text-white">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Application.ViewModels.ProductoraViewModel productora in Model)
+                    {
+                        <tr>
+                            <td>@productora.Nombre</td>
+                            <td>
+                                <a asp-controller="Productoras" asp-action="EditProductora" asp-route-IdProductora="@productora.IdProductora" class="btn btn-warning">Editar</a>
+                                <a asp-controller="Productoras" asp-action="DeleteProductora" asp-route-IdProductora="@productora.IdProductora" class="btn btn-danger">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

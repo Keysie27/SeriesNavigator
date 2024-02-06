@@ -1,0 +1,72 @@
+﻿@model Application.ViewModels.SaveSerieViewModel
+@{
+    bool editModel = Model.IdSerie == 0 ? false : true;
+    ViewData["Title"] = "Save Serie";
+}
+
+<h1 class="text-primary font-weight-bold">@(editModel ? "Modificar Serie:" : "Nueva Serie")</h1>
+<hr />
+
+<form method="post" asp-controller="Series" asp-action="@(editModel ? "EditSerie" : "CreateSerie")">
+    <div class="row">
+        <div class="mb-3 col-5 offset-1">
+            <label asp-for="Nombre" class="form-label" style="font-weight:500">Nombre de la serie:</label>
+            <input type="text" class="form-control" asp-for="Nombre" maxlength="150">
+            <span asp-validation-for="Nombre" class="form-text text-danger"></span>
+        </div>
+        <div class="mb-3 col-5">
+            <label asp-for="IdProductora" class="form-label" style="font-weight:500">Productora:</label>
+            <select class="form-select" asp-for="IdProductora">
+                @if (Model.Productoras != null)
+                {
+                    @foreach (Application.ViewModels.ProductoraViewModel productora in Model.Productoras)
+                    {
+                        @if (editModel == true && productora.IdProductora == Model.IdProductora)
+                        {
+                            <option selected value="@productora.IdProductora">@productora.Nombre</option>
+                        }
+                        else
+                        {
+                            <option value="@productora.IdProductora">@productora.Nombre</option>
+                        }
+                    }
+                }
+            </select>
+            <span asp-validation-for="IdProductora" class="form-text text-danger"></span>
+        </div>
+        <div class="mb-3 col-5 offset-1">
+            <label asp-for="Portada" class="form-label" style="font-weight:500">URL de la portada:</label>
+            <input type="text" class="form-control" asp-for="Portada">
+            <span asp-validation-for="Portada" class="form-text text-danger"></span>
+        </div>
+        <div class="mb-3 col-5">
+            <label asp-for="IdGenero" class="form-label" style="font-weight:500">Género:</label>
+            <select class="form-select" asp-for="IdGenero">
+                @if (Model.Generos != null)
+                {
+                    @foreach (Application.ViewModels.GeneroViewModel genero in Model.Generos)
+                    {
+                        @if (editModel == true && genero.IdGenero == Model.IdGenero)
+                        {
+                            <option selected value="@genero.IdGenero">@genero.Nombre</option>
+                        }
+                        else
+                        {
+                            <option value="@genero.IdGenero">@genero.Nombre</option>
+                        }
+                    }
+                }
+            </select>
+            <span asp-validation-for="IdGenero" class="form-text text-danger"></span>
+        </div>
+        <div class="mb-3 col-5 offset-1">
+            <label asp-for="Trailer" class="form-label" style="font-weight:500">URL del trailer (Iframe de Youtube):</label>
+            <input type="text" class="form-control" asp-for="Trailer">
+            <span asp-validation-for="Trailer" class="form-text text-danger"></span>
+        </div>
+    </div>
+    <input type="hidden" asp-for="IdSerie" />
+    <hr />
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-controller="Series" asp-action="Index" class="btn btn-success">Volver Atrás</a>
+</form>

@@ -1,0 +1,43 @@
+﻿@model List<Application.ViewModels.GeneroViewModel>
+@{
+    ViewData["Title"] = "Géneros";
+}
+
+<div class="d-flex justify-content-center">
+    <a asp-controller="Generos" asp-action="CreateGenero" class="btn btn-success btn-lg">Agregar Género</a>
+</div>
+
+<h1 class="text-primary font-weight-bold">Géneros</h1>
+<hr />
+
+<div class="container">
+    <div class="row">
+        @if (Model == null || Model.Count == 0)
+        {
+            <h2>No hay géneros agregados.</h2>
+        }
+        else
+        {
+            <table class="table table-striped table-bordered text-lg">
+                <thead class="bg-dark">
+                    <tr>
+                        <th scope="col" class="text-white">Nombre del Género</th>
+                        <th scope="col" class="text-white">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Application.ViewModels.GeneroViewModel genero in Model)
+                    {
+                        <tr>
+                            <td>@genero.Nombre</td>
+                            <td>
+                                <a asp-controller="Generos" asp-action="EditGenero" asp-route-IdGenero="@genero.IdGenero" class="btn btn-warning">Editar</a>
+                                <a asp-controller="Generos" asp-action="DeleteGenero" asp-route-IdGenero="@genero.IdGenero" class="btn btn-danger">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@model Application.ViewModels.SaveSerieViewModel
+@{
+    ViewData["Title"] = "Detalle Serie";
+}
+
+<h1 class="text-primary font-weight-bold">@Model.Nombre</h1>
+<hr />
+
+<div class="row justify-content-center">
+    <iframe class="col-8" width="873" height="491" src="@Model.Trailer" title="The Peak" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+<hr />
+<a asp-controller="Home" asp-action="Index" class="btn btn-success">Volver Atrás</a>

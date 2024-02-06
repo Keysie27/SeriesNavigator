@@ -1,0 +1,38 @@
+﻿@model List<Application.ViewModels.SerieViewModel>
+@{
+    ViewData["Title"] = "Series";
+}
+
+<div class="d-flex justify-content-center">
+    <a asp-controller="Series" asp-action="CreateSerie" class="btn btn-success btn-lg">Agregar Serie</a>
+</div>
+
+<h1 class="text-primary font-weight-bold">Series</h1>
+<hr />
+
+<div class="container">
+    <div class="row">
+        @if (Model == null || Model.Count == 0)
+        {
+            <h2>No hay series agregadas.</h2>
+        }
+        else
+        {
+            @foreach (Application.ViewModels.SerieViewModel serie in Model)
+            {
+                <div class="card p-0 col-3 m-3 bg-dark" style="width: 18rem;">
+                    <img src="@serie.Portada" class="card-img-top" alt="serie">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3 text-white">@serie.Nombre</h5>
+                        <p class="card-text d-inline border border-succes p-1 px-2 rounded text-white">@serie.Genero?.Nombre</p>
+                        <div class="mt-3">
+                            <p class="card-text text-muted">@serie.Productora?.Nombre</p>
+                            <a asp-controller="Series" asp-action="EditSerie" asp-route-idSerie="@serie.IdSerie" class="btn btn-outline-warning">Editar</a>
+                            <a asp-controller="Series" asp-action="DeleteSerie" asp-route-idSerie="@serie.IdSerie" class="btn btn-outline-danger">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

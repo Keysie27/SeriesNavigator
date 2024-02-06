@@ -1,0 +1,22 @@
+﻿@model Application.ViewModels.SaveProductoraViewModel
+@{
+    bool editModel = Model.IdProductora == 0 ? false : true;
+    ViewData["Title"] = "Save Productora";
+}
+
+<h1 class="text-primary font-weight-bold">@(editModel ? "Modificar Productora:" : "Agregar Productora:")</h1>
+<hr />
+<form method="post" asp-controller="Productoras" asp-action="@(editModel ? "EditProductora" : "CreateProductora")">
+    <div class="row">
+        <div class="mb-3 col-4">
+            <label asp-for="Nombre" class="form-label" style="font-weight:500">Nombre de la productora:</label>
+            <input type="text" class="form-control" asp-for="Nombre" maxlength="150">
+            <span asp-validation-for="Nombre" class="form-text text-danger"></span>
+        </div>
+    </div>
+    <input type="hidden" asp-for="IdProductora" />
+
+    <hr />
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-controller="Productoras" asp-action="Index" class="btn btn-success">Volver Atrás</a>
+</form>

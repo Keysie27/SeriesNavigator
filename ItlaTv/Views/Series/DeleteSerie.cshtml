@@ -1,0 +1,19 @@
+﻿@model Application.ViewModels.SaveSerieViewModel
+@{
+    bool editModel = Model.IdSerie == 0 ? false : true;
+    ViewData["Title"] = "Eliminar Serie";
+}
+
+<h1 class="text-primary font-weight-bold">Eliminar Serie</h1>
+<hr />
+
+<form method="post" asp-controller="Series" asp-action="DeleteSeriePost">
+    <div>
+        <p class="">¿Estas seguro de que deseas eliminar a "<span style="font-weight:bold">@Model.Nombre</span>" del catálogo de <span class="text-decoration-underline">series</span>?</p>
+
+        <input type="hidden" asp-for="IdSerie" />
+        <hr />
+        <button type="submit" class="btn btn-primary">Borrar</button>
+        <a asp-controller="Series" asp-action="Index" class="btn btn-success">Volver Atrás</a>
+    </div>
+</form>
